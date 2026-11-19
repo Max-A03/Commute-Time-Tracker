@@ -37,10 +37,11 @@ import java.util.Locale
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Configuration.getInstance().userAgentValue = packageName
-        Configuration.getInstance().load(
-            this, getSharedPreferences("osm", Context.MODE_PRIVATE)
-        )
+        val osm = Configuration.getInstance()
+        osm.load(applicationContext, getSharedPreferences("osm", Context.MODE_PRIVATE))
+        osm.userAgentValue = packageName
+        osm.osmdroidBasePath = java.io.File(cacheDir, "osmdroid")
+        osm.osmdroidTileCache = java.io.File(cacheDir, "osmdroid/tiles")
         setContent {
             MaterialTheme { AppRoot() }
         }
