@@ -15,3 +15,23 @@ data class Waypoint(
     val isAuto: Boolean = false,
     val isHome: Boolean = false,
     val isWork: Boolean = false
+)
+
+// One commute from pressing Start to arriving at work.
+@Entity(tableName = "trips")
+data class Trip(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val startTime: Long,
+    val endTime: Long? = null
+)
+
+// The time you passed a particular waypoint on a particular trip.
+@Entity(tableName = "splits")
+data class Split(
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
+    val tripId: Long,
+    val waypointId: Long,
+    val waypointName: String,
+    val orderIndex: Int,
+    val timestamp: Long
+)
